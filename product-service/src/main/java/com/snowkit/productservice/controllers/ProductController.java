@@ -1,30 +1,56 @@
 package com.snowkit.productservice.controllers;
 
+import com.snowkit.productservice.dtos.CreateProductRequestDto;
+import com.snowkit.productservice.dtos.CreateProductResponseDto;
+import com.snowkit.productservice.dtos.GetProductDto;
+import com.snowkit.productservice.models.Product;
+import com.snowkit.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("/products")
 public class ProductController {
-    @PostMapping("/prodducts/")
-    public void createProduct(){
 
+    @Qualifier("fakeStoreProductService")
+    ProductService productService;
+
+    public ProductController(ProductService productService){
+        this.productService = productService;
     }
 
-    @GetMapping("/products/")
-    public void getAllProducts(){
-
+    @PostMapping("/")
+    public CreateProductResponseDto createProduct(@RequestBody CreateProductRequestDto createProductRequestDto){
+        Product product = productService.createProduct(createProductRequestDto.toProduct());
+        return CreateProductResponseDto.fromProduct(product);
     }
 
-    @GetMapping("/products/{id}") //{id} is a ```Path Variable```
-    public void getSingleProduct(@PathVariable long id) {
-
+    @GetMapping("")
+    public List<GetProductDto> getAllProducts(){
+        return productService.getAllProducts();
     }
 
-    @DeleteMapping("/products/{id}") //{id} is a ```Path Variable```
+    @GetMapping("/{id}") //{id} is a ```Path Variable```
+    public String getSingleProduct(@PathVariable long id) {
+        return "Here is you product: "+id;
+    }
+
+    @DeleteMapping("/{id}") //{id} is a ```Path Variable```
     public void deleteProduct(@PathVariable long id) {
 
     }
 
-    @RequestMapping(name = "SRUJAN", value =  "/products")
+    public void updateProduct(){
+
+    }
+
+    public void replaaceProduct(){
+
+    }
+
+    @RequestMapping(name = "SRUJAN", value =  "/random_magic")
     public String random_magic(){
         return "Magic";
     }
