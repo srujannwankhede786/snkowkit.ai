@@ -15,7 +15,7 @@ public class ProductServiceDBImpl implements ProductService {
     }
 
     @Override
-    public List<GetProductDto> getAllProducts() {
+    public List<Product> getAllProducts() {
         return null;
     }
 }

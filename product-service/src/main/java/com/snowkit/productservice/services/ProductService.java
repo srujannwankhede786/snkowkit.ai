@@ -11,5 +11,5 @@ public interface ProductService {
 
     Product createProduct(Product product); //Model
 
-    List<GetProductDto> getAllProducts();
+    List<Product> getAllProducts();
 }

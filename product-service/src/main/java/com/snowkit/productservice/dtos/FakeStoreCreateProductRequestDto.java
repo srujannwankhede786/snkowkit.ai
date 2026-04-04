@@ -12,4 +12,6 @@ public class FakeStoreCreateProductRequestDto {
     private String imageUrl;
     private String description;
     private String categoryName;
+
+    
 }

@@ -10,7 +10,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service("fakeStoreProductService")
 @Primary
@@ -54,12 +57,19 @@ public class ProductServiceFakeStoreImpl implements ProductService{
     }
 
     @Override
-    public List<GetProductDto> getAllProducts() {
+    public List<Product> getAllProducts() {
 
-        GetProductResponse getProductResponse = restTemplate.getForObject("https://dummyjson.com/products", GetProductResponse.class);
+        List<Product> productList = new ArrayList<>();
 
-        if(getProductResponse !=null)
-            return getProductResponse.getProductList();
-        return null;
+        GetProductResponse response = restTemplate.getForObject(
+                "https://dummyjson.com/products",
+                GetProductResponse.class
+        );
+        if(response!=null && response.getProducts()!=null){
+            for (GetProductDto dto : response.getProducts()) {
+                productList.add(dto.toProduct());
+            }
+        }
+        return productList;
     }
 }

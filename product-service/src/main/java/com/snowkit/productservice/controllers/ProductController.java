@@ -28,8 +28,9 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public List<GetProductDto> getAllProducts(){
-        return productService.getAllProducts();
+    public List<Product> getAllProducts(){
+        List<Product> productList = productService.getAllProducts();
+        return productList;
     }
 
     @GetMapping("/{id}") //{id} is a ```Path Variable```

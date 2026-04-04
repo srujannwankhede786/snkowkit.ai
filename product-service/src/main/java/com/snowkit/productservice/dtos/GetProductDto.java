@@ -17,26 +17,15 @@ public class GetProductDto {
     private String thumbnail;
     private String category;
 
-    public static GetProductDto fromProduct(Product product){
-        GetProductDto getProductDto = new GetProductDto();
+    public Product toProduct() {
+        Product product = new Product();
+        product.setId(this.id);
+        product.setTitle(this.title);
+        product.setDescription(this.description);
+        product.setPrice(this.price);
+        product.setImageUrl(this.thumbnail);
+        product.setCategoryName(this.category);
 
-        getProductDto.setId(product.getId());
-        getProductDto.setDescription(product.getDescription());
-        getProductDto.setTitle(product.getTitle());
-        getProductDto.setPrice(product.getPrice());
-        getProductDto.setThumbnail(product.getImageUrl());
-        getProductDto.setCategory(product.getCategoryName());
-
-        return getProductDto;
-    }
-
-
-    public static List<GetProductDto> fromProductList(List<Product> productList){
-        List<GetProductDto> getProductDtoList = new ArrayList<>();
-
-        for(Product product_i : productList){
-            getProductDtoList.add(GetProductDto.fromProduct(product_i));
-        }
-        return getProductDtoList;
+        return product;
     }
 }
